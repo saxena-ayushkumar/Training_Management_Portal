@@ -51,34 +51,9 @@ public class TraineeController {
         try {
             User updatedTrainee = traineeService.updateTrainee(empId, updateDto);
             
-<<<<<<< HEAD
             response.put("success", true);
             response.put("message", "Trainee profile updated successfully");
             return ResponseEntity.ok(response);
-=======
-            if (trainee != null && "trainee".equals(trainee.getRole())) {
-                if (updates.containsKey("name")) trainee.setName((String) updates.get("name"));
-                if (updates.containsKey("email")) trainee.setEmail((String) updates.get("email"));
-                if (updates.containsKey("phone")) trainee.setPhoneNumber((String) updates.get("phone"));
-                if (updates.containsKey("experience")) {
-                    Object exp = updates.get("experience");
-                    if (exp instanceof String) {
-                        trainee.setAddress((String) exp); // Using address field for experience description
-                    }
-                }
-                if (updates.containsKey("address")) trainee.setAddress((String) updates.get("address"));
-                
-                userService.saveUser(trainee);
-                
-                response.put("success", true);
-                response.put("message", "Trainee profile updated successfully");
-                return ResponseEntity.ok(response);
-            } else {
-                response.put("success", false);
-                response.put("message", "Trainee not found");
-                return ResponseEntity.notFound().build();
-            }
->>>>>>> TMP
         } catch (Exception e) {
             response.put("success", false);
             response.put("message", "Error updating trainee profile: " + e.getMessage());

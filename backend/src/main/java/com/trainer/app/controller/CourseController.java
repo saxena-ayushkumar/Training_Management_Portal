@@ -99,58 +99,7 @@ public class CourseController {
             }
             
             String traineeBatch = trainee.getBatchName();
-<<<<<<< HEAD
             List<CourseResponseDto> coursesWithProgress = courseService.getAvailableCoursesForTraineeDto(traineeEmpId, traineeBatch);
-=======
-            String trainerEmpId = trainee.getTrainerEmpId();
-            
-            // Validate trainer assignment
-            if (trainerEmpId == null || trainerEmpId.isEmpty()) {
-                Map<String, Object> response = new HashMap<>();
-                response.put("success", false);
-                response.put("message", "Trainee is not assigned to any trainer");
-                return ResponseEntity.badRequest().body(response);
-            }
-            
-            // Only show courses created by the trainee's trainer
-            List<Course> availableCourses = courseService.getAvailableCoursesForTrainee(traineeBatch, trainerEmpId);
-            
-            // Get progress for each course
-            List<CourseProgress> allProgress = courseProgressRepository.findByTraineeEmpId(traineeEmpId);
-            Map<Long, CourseProgress> progressMap = new HashMap<>();
-            for (CourseProgress progress : allProgress) {
-                progressMap.put(progress.getCourseId(), progress);
-            }
-            
-            // Add progress data to courses
-            List<Map<String, Object>> coursesWithProgress = availableCourses.stream().map(course -> {
-                Map<String, Object> courseData = new HashMap<>();
-                courseData.put("id", course.getId());
-                courseData.put("title", course.getTitle());
-                courseData.put("description", course.getDescription());
-                courseData.put("duration", course.getDuration());
-                courseData.put("status", course.getStatus());
-                courseData.put("instructor", course.getInstructor());
-                courseData.put("courseLink", course.getCourseLink());
-                courseData.put("assignedBatch", course.getAssignedBatch());
-                courseData.put("enrolledCount", course.getEnrolledCount());
-                
-                CourseProgress progress = progressMap.get(course.getId());
-                if (progress != null) {
-                    courseData.put("started", progress.getStarted());
-                    courseData.put("completed", progress.getCompleted());
-                    courseData.put("progressPercentage", progress.getProgressPercentage());
-                    courseData.put("certificateUploaded", progress.getCertificateUploaded());
-                } else {
-                    courseData.put("started", false);
-                    courseData.put("completed", false);
-                    courseData.put("progressPercentage", 0);
-                    courseData.put("certificateUploaded", false);
-                }
-                
-                return courseData;
-            }).toList();
->>>>>>> TMP
             
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);
